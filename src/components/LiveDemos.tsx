@@ -66,7 +66,7 @@ export const LiveDemos = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <Button size="lg" className="gradient-primary">
+          <Button size="lg" className="gradient-primary"  onClick={() => window.open('https://calendly.com/team-flexflowai/30min', '_blank', 'noopener,noreferrer')}>
             <Zap className="mr-2 h-5 w-5" /> Book a Personalized Demo
           </Button>
         </div>

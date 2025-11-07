@@ -43,9 +43,14 @@ export const Hero = () => {
                 See Live Demo
                 <Play className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               </Button>
-              <Button size="lg" variant="outline" className="glow-border text-base">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="glow-border text-base group"
+                onClick={() => window.open('https://calendly.com/team-flexflowai/30min', '_blank', 'noopener,noreferrer')}
+              >
                 Book Free Consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
 

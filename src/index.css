@@ -2,77 +2,120 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ---------------------------------------------------------
+   FlexFlow AI — Unified Design System (Light + Dark)
+   - All colors in HSL
+   - Fonts: Clash Display (headings), Inter (body)
+   - Use utility classes: .gradient-primary, .gradient-text, .glass-card, .btn-primary, .glow-border, .animate-float, .animate-glow
+   --------------------------------------------------------- */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
+  /* Root design tokens (HSL) */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
-    
-    --card: 0 0% 98%;
-    --card-foreground: 0 0% 10%;
-    
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    
-    --primary: 195 100% 50%;
-    --primary-foreground: 0 0% 100%;
-    
-    --secondary: 252 100% 69%;
-    --secondary-foreground: 0 0% 100%;
-    
-    --muted: 0 0% 96%;
+    /* Fonts */
+    --font-heading: 'Clash Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* Typography sizes */
+    --text-xxl: 4.5rem;
+    --text-xl: 3rem;
+    --text-lg: 2rem;
+    --text-md: 1.5rem;
+    --text-base: 1.125rem;
+    --text-sm: 1rem;
+    --text-xs: 0.875rem;
+
+    /* Spacing */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-4: 1rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-12: 3rem;
+    --spacing-16: 4rem;
+    --spacing-24: 6rem;
+    --spacing-32: 8rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --shadow-gold: 0 0 15px rgba(213, 161, 0, 0.4);
+
+    /* Core color tokens (HSL) */
+    --gold-500: 46 100% 45%;   /* #D5A100 */
+    --gold-600: 42 100% 40%;   /* #C28B00 */
+    --black: 0 0% 5%;          /* #0D0D0D */
+    --white: 0 0% 100%;        /* #FFFFFF */
+    --beige: 48 100% 96%;      /* #FFF7E0 */
+    --gray-100: 0 0% 98%;
+    --gray-200: 0 0% 96%;
+    --gray-300: 0 0% 90%;
+
+    /* System-level colors (light theme defaults) */
+    --background: var(--beige);
+    --foreground: var(--black);
+    --card: var(--white);
+    --card-foreground: var(--black);
+    --popover: var(--white);
+    --popover-foreground: var(--black);
+    --primary: var(--gold-500);
+    --primary-foreground: var(--white);
+    --secondary: var(--black);
+    --secondary-foreground: var(--white);
+    --muted: var(--gray-100);
     --muted-foreground: 0 0% 45%;
-    
-    --accent: 252 100% 69%;
-    --accent-foreground: 0 0% 100%;
-    
+    --accent: var(--gold-500);
+    --accent-foreground: var(--white);
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 195 100% 50%;
-    
-    --radius: 0.75rem;
-    
-    --glow-blue: 195 100% 50%;
-    --glow-violet: 252 100% 69%;
-    --glass-bg: 0 0% 100%;
-    --glass-border: 0 0% 85%;
+    --destructive-foreground: var(--white);
+    --border: var(--gray-300);
+    --input: var(--gray-300);
+    --ring: var(--gold-500);
+    --radius: 0.5rem;
+
+    /* Glow / gradient tokens (HSL) */
+    --glow-blue: var(--gold-600);      /* H = 42 100% 40%  used as hue/saturation/lightness pairs where needed */
+    --glow-violet: 260 84% 70%;        /* fallback violet for accents */
+    --glass-bg: 0 0% 100% / 0.8;
+    --glass-border: 0 0% 90% / 0.3;
   }
 
+  /* Dark theme overrides — toggle by adding .dark on <html> or <body> */
   .dark {
     --background: 240 10% 5%;
     --foreground: 0 0% 98%;
-    
+
     --card: 240 8% 8%;
     --card-foreground: 0 0% 98%;
-    
+
     --popover: 240 8% 8%;
     --popover-foreground: 0 0% 98%;
-    
+
     --primary: 195 100% 50%;
     --primary-foreground: 0 0% 100%;
-    
+
     --secondary: 252 100% 69%;
     --secondary-foreground: 0 0% 100%;
-    
+
     --muted: 240 8% 15%;
     --muted-foreground: 0 0% 65%;
-    
+
     --accent: 252 100% 69%;
     --accent-foreground: 0 0% 100%;
-    
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    
+
     --border: 240 8% 15%;
     --input: 240 8% 15%;
     --ring: 195 100% 50%;
-    
+
     --glow-blue: 195 100% 50%;
     --glow-violet: 252 100% 69%;
     --glass-bg: 240 8% 8%;
@@ -80,39 +123,152 @@ All colors MUST be HSL.
   }
 }
 
+/* Base element styles */
 @layer base {
   * {
-    @apply border-border;
+    box-sizing: border-box;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply antialiased;
+    font-family: var(--font-sans);
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Decorative subtle background texture for light theme (keeps performance reasonable) */
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255,247,224,0.8) 0%, transparent 20%),
+      radial-gradient(circle at 90% 80%, rgba(139,92,246,0.06) 0%, transparent 18%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C28B00' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
-  
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    color: hsl(var(--foreground));
+  }
+
+  h1 { font-size: var(--text-xxl); }
+  h2 { font-size: var(--text-xl); }
+  h3 { font-size: var(--text-lg); }
+  h4 { font-size: var(--text-md); }
+  h5 { font-size: var(--text-base); }
+  h6 { font-size: var(--text-sm); }
+
+  p, li {
+    color: hsl(var(--muted-foreground));
+    font-size: 1rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 }
 
-@layer utilities {
-  .gradient-primary {
-    background: linear-gradient(135deg, hsl(var(--glow-blue)) 0%, hsl(var(--glow-violet)) 100%);
-  }
-  
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--glow-blue)) 0%, hsl(var(--glow-violet)) 100%);
-  }
-  
+/* Components & Utilities */
+@layer components {
+  /* Glass / Frosted card component */
   .glass-card {
-    @apply backdrop-blur-xl bg-glass-bg/30 border border-glass-border/50 rounded-2xl;
+    @apply relative overflow-hidden rounded-2xl transition-all duration-300;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 6px 30px rgba(0,0,0,0.08);
   }
-  
+  .dark .glass-card {
+    background: rgba(18,18,20,0.55);
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+  }
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.08) 100%);
+    z-index: -1;
+    margin: -1px;
+    border-radius: inherit;
+  }
+  .glass-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.12);
+  }
+
+  /* Button primary */
+  .btn-primary {
+    @apply relative inline-block overflow-hidden px-8 py-3 rounded-full font-medium text-white transition-all duration-300;
+    background: linear-gradient(90deg, hsl(var(--gold-600)) 0%, hsl(var(--gold-500)) 100%);
+    box-shadow: 0 6px 20px rgba(194, 139, 0, 0.28);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(194,139,0,0.36);
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: -40%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+  }
+  .btn-primary:hover::before {
+    opacity: 1;
+    left: 120%;
+  }
+
+  /* Navbar */
+  .navbar {
+    @apply fixed top-0 left-0 right-0 z-50 transition-all duration-300;
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .dark .navbar {
+    background: rgba(10,10,12,0.55);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .nav-link {
+    @apply relative font-medium px-3 py-2 transition-colors duration-200;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, hsl(var(--gold-500)), hsl(var(--gold-600)));
+    transition: width .25s ease;
+    border-radius: 2px;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  /* Glow border effect for cards and containers */
   .glow-border {
     position: relative;
     border-radius: 1rem;
   }
-  
   .glow-border::before {
     content: '';
     position: absolute;
@@ -124,31 +280,135 @@ All colors MUST be HSL.
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+    opacity: 0.9;
   }
-  
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+
+  /* Gradient / Text gradient helpers */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--glow-blue)) 0%, hsl(var(--glow-violet)) 100%);
   }
-  
+  .gradient-text {
+    @apply bg-clip-text text-transparent font-bold;
+    background-image: linear-gradient(135deg, hsl(var(--gold-600)) 0%, hsl(var(--glow-violet)) 100%);
+    position: relative;
+    display: inline-block;
+  }
+  .gradient-text::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    z-index: -1;
+    filter: blur(12px);
+    opacity: 0.18;
+    border-radius: 0.5rem;
+    transition: opacity .25s ease, filter .25s ease;
+  }
+  .gradient-text:hover::after { opacity: 0.3; filter: blur(16px); }
+
+  /* Floating / motion */
+  .animate-float { animation: float 6s ease-in-out infinite; }
   @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
   }
-  
-  .animate-glow {
-    animation: glow 3s ease-in-out infinite;
-  }
-  
+  .animate-glow { animation: glow 3s ease-in-out infinite; }
   @keyframes glow {
-    0%, 100% {
-      filter: drop-shadow(0 0 20px hsl(var(--glow-blue) / 0.5));
-    }
-    50% {
-      filter: drop-shadow(0 0 30px hsl(var(--glow-violet) / 0.7));
-    }
+    0%,100% { filter: drop-shadow(0 0 20px hsl(var(--glow-blue) / 0.5)); }
+    50% { filter: drop-shadow(0 0 30px hsl(var(--glow-violet) / 0.7)); }
   }
 }
+
+/* Additional utilities and polished touches */
+@layer utilities {
+  /* Text gradient utility (explicit) */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--gold-600)) 0%, hsl(var(--glow-violet)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  /* Card glow subtle wrapper */
+  .card-soft {
+    background: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: 1rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow);
+    padding: 1.25rem;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--gray-200)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--gold-500)); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--gold-600)); }
+
+  /* Soft borders / radius helpers */
+  .rounded-xl-2 { border-radius: 1rem; }
+
+  /* Button small variant */
+  .btn-sm {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium;
+    background: linear-gradient(90deg, hsl(var(--gold-600)) 0%, hsl(var(--gold-500)) 100%);
+    color: hsl(var(--primary-foreground));
+  }
+
+  /* Glass panel for dark/light compatibility */
+  .glass-panel {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+  }
+  .dark .glass-panel {
+    background: rgba(16,16,18,0.48);
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* small utility for subtle section divider */
+  .section-divider {
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 247, 224, 0.8));
+    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+  }
+
+  /* small pill badge */
+  .pill-badge {
+    display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .7rem; border-radius: 999px;
+    background: hsl(var(--card)); color: hsl(var(--card-foreground)); border:1px solid hsl(var(--border));
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  }
+
+  /* soft icon circle for hero */
+  .icon-circle {
+    width:64px; height:64px; display:inline-grid; place-items:center; border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  }
+
+  /* small responsive helpers */
+  @media (max-width: 768px) {
+    h1 { font-size: 2.25rem; }
+    :root { --text-xxl: 2.25rem; }
+  }
+
+  /* Accessibility focus ring */
+  .focus-ring:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(213,161,0,0.12);
+    border-radius: .5rem;
+  }
+
+  /* Utility to force text color split for dark/light variables */
+  .text-muted { color: hsl(var(--muted-foreground)); }
+  .text-foreground { color: hsl(var(--foreground)); }
+  .bg-card { background: hsl(var(--card)); }
+}
+
+/* ----------------------------
+   Usage notes:
+   - Toggle .dark on html/body to switch theme tokens.
+   - Use .gradient-text on headline words, .btn-primary for CTAs.
+   - .glass-card, .glass-panel, .glow-border are interchangeable for premium cards.
+   ---------------------------- */

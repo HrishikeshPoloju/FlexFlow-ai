@@ -24,7 +24,7 @@ export const CTA = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" className="gradient-primary font-semibold text-lg group">
+              <Button size="lg" className="gradient-primary font-semibold text-lg group"  onClick={() => window.open('https://calendly.com/team-flexflowai/30min', '_blank', 'noopener,noreferrer')}>
                 Book My Demo
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>

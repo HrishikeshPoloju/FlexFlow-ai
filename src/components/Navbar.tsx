@@ -21,10 +21,10 @@ export const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50 py-4 bg-transparent">
       <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-20 border border-white/10 rounded-full px-8 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:shadow-lg hover:shadow-white/5">
+        <div className="flex items-center justify-between h-20 border border-black/10 dark:border-white/10 rounded-full px-8 backdrop-blur-sm transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5">
           <a 
             href="#home" 
-            className="text-2xl font-heading font-bold text-white ml-4 hover:scale-125 transition-transform duration-300"
+            className="text-2xl font-heading font-bold text-foreground ml-4 hover:scale-125 transition-transform duration-300 dark:text-white"
           >
             FlexFlow AI
           </a>
@@ -35,10 +35,10 @@ export const Navbar = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="relative text-foreground/80 hover:text-white transition-all duration-300 group"
+                className="relative text-foreground/80 hover:text-foreground transition-all duration-300 group"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black dark:bg-white transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </div>
@@ -53,6 +53,7 @@ export const Navbar = () => {
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
             <Button 
+              onClick={() => window.open('https://calendly.com/team-flexflowai/30min', '_blank', 'noopener,noreferrer')}
               className="gradient-primary font-semibold rounded-full px-6 py-2 hover:scale-105 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
             >
               Book Demo
@@ -94,6 +95,7 @@ export const Navbar = () => {
             ))}
             <div className="px-4 pt-2">
               <Button 
+                onClick={() => window.open('https://calendly.com/your-username/30min', '_blank', 'noopener,noreferrer')}
                 className="w-full gradient-primary font-semibold rounded-full py-2 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
               >
                 Book Demo
