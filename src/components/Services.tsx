@@ -1,32 +1,39 @@
 import { Phone, MessageSquare, Workflow, Globe, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 
 export const Services = () => {
+  const navigate = useNavigate();
+
   const services = [
     {
       icon: Phone,
       title: "AI Voice Agents",
       description: "Answer calls, book appointments, manage clients 24/7.",
       popular: true,
+      link: "/services/voice-agents"
     },
     {
       icon: MessageSquare,
       title: "AI Chat Automation",
       description: "WhatsApp, Web, and Social chatbots that respond instantly.",
       popular: false,
+      link: "/services/chat-automation"
     },
     {
       icon: Workflow,
       title: "Workflow Automation",
       description: "Trigger tasks, reminders, analytics, and CRM syncs.",
       popular: false,
+      link: "/services/workflow-automation"
     },
     {
       icon: Globe,
       title: "AI Website Builder",
       description: "Auto-generate websites integrated with chat agents.",
       popular: false,
+      link: "/services/ai-website-builder"
     },
   ];
 
@@ -62,10 +69,16 @@ export const Services = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   {service.description}
                 </p>
-                <Button variant="ghost" className="group/btn p-0 h-auto font-semibold text-primary">
-                  Learn More
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
+                <div className="mt-6">
+                  <Button 
+                    variant="outline" 
+                    className="group"
+                    onClick={() => service.link && navigate(service.link)}
+                  >
+                    Learn more
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
