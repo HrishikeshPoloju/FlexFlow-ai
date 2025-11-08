@@ -40,7 +40,7 @@ export const Navbar = () => {
     { href: "/", label: "Home", isHash: false },
     { href: "#about", label: "About", isHash: true },
     { href: "#services", label: "Services", isHash: true },
-    { href: "#testimonial", label: "Testimonial", isHash: true },
+    { href: "#testimonials", label: "Testimonials", isHash: true },
     { href: "#contact", label: "Contact", isHash: true },
   ];
 
