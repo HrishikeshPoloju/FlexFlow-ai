@@ -1,7 +1,6 @@
 # FlexFlow AI - Intelligent Business Automation Platform
 
 <div align="center">
-  <img src="public/logo.png" alt="FlexFlow AI Logo" width="200"/>
   
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react&logoColor=white)](https://reactjs.org/)
