@@ -3,10 +3,12 @@ import { Play, Zap, Bot, MessageSquare, Phone, Video, ArrowRight, X } from "luci
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
+import { motion } from "framer-motion";
 
 export const LiveDemos = () => {
   const [selectedDemo, setSelectedDemo] = useState<number | null>(null);
   const [showCalendly, setShowCalendly] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const demos = [
     {
@@ -33,15 +35,19 @@ export const LiveDemos = () => {
   ];
 
   return (
-    <section id="demos" className="py-20 md:py-32 relative bg-muted/20">
-      <div className="absolute inset-0 overflow-hidden -z-10">
-        <div className="absolute -right-20 -top-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute -left-20 -bottom-20 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
+    <section id="demos" className="py-12 md:py-16 relative overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,191,255,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,rgba(0,191,255,0.2),transparent_65%)]" />
+        <div className="absolute -top-28 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl" />
+        <div className="absolute -bottom-32 right-12 h-56 w-56 rounded-full bg-primary/20 blur-3xl" />
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <Badge className="gradient-primary mb-4">Experience It Live</Badge>
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <Badge variant="outline" className="mb-4 border-primary/20 bg-primary/5 text-primary hover:bg-primary/10">
+            <Zap className="w-3 h-3 mr-1" />
+            Experience It Live
+          </Badge>
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
             See Our <span className="gradient-text">AI in Action</span>
           </h2>
@@ -52,36 +58,62 @@ export const LiveDemos = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           {demos.map((demo, index) => (
-            <div 
-              key={index} 
-              className="bg-card/50 border border-border/50 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 hover:border-primary/30 group"
+            <motion.div
+              key={index}
+              className="relative group cursor-pointer h-full"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
-              <div className="bg-primary/10 w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-primary">
-                <demo.icon className="w-6 h-6" />
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-6 flex flex-col h-full shadow-sm hover:shadow-xl hover:shadow-amber-500/5 hover:border-amber-500/20 hover:-translate-y-1 transition-all duration-500 ease-out">
+                {/* Icon Container */}
+                <div className="relative mb-6">
+                  <div className="relative w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/10 to-violet-500/10 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-amber-400/20 to-violet-500/20 blur-lg group-hover:blur-xl transition-all duration-500 opacity-0 group-hover:opacity-100" />
+                    <demo.icon className="w-6 h-6 relative z-10 text-foreground group-hover:text-amber-500 transition-colors duration-300" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-grow">
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-foreground transition-colors">
+                    {demo.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                    {demo.description}
+                  </p>
+                </div>
+
+                {/* Footer */}
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/50">
+                  <span className="text-sm text-muted-foreground flex items-center gap-1">
+                    <Play className="w-4 h-4" /> {demo.duration}
+                  </span>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-blue-500 hover:text-blue-600 hover:bg-blue-500/10 -mr-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedDemo(index);
+                    }}
+                  >
+                    Watch Demo 
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
+
+                {/* Hover Gradient Overlay */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-500/0 via-transparent to-violet-500/0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{demo.title}</h3>
-              <p className="text-muted-foreground mb-4">{demo.description}</p>
-              <div className="flex items-center justify-between mt-6">
-                <span className="text-sm text-muted-foreground flex items-center gap-1">
-                  <Play className="w-4 h-4" /> {demo.duration}
-                </span>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="group-hover:bg-primary/10 group-hover:border-primary/30"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedDemo(index);
-                  }}
-                >
-                  Watch Demo <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <Button size="lg" className="gradient-primary" onClick={() => setShowCalendly(true)}>
             <Zap className="mr-2 h-5 w-5" /> Book a Personalized Demo
           </Button>

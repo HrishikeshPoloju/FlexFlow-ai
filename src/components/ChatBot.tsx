@@ -3,6 +3,7 @@ import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { chatWithAI, Message } from "@/services/api";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,84 +67,128 @@ export const ChatBot = () => {
   return (
     <>
       {/* Chat Button */}
-      <Button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full gradient-primary shadow-lg hover:scale-110 transition-transform z-50"
-        size="icon"
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        className="fixed bottom-6 right-6 z-50"
       >
-        {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
-      </Button>
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-14 h-14 rounded-full bg-gradient-to-r from-orange-500 via-blue-500 to-purple-600 hover:from-orange-600 hover:via-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 group"
+          size="icon"
+        >
+          {isOpen ? (
+            <X className="h-5 w-5 text-white" />
+          ) : (
+            <MessageCircle className="h-5 w-5 text-white" />
+          )}
+        </Button>
+      </motion.div>
 
       {/* Chat Window */}
-      {isOpen && (
-        <div className="fixed bottom-24 right-6 w-80 md:w-96 glass-card rounded-2xl shadow-2xl z-50 overflow-hidden">
-          {/* Header */}
-          <div className="gradient-primary p-4">
-            <h3 className="font-semibold text-white">Chat with Our Flexi Bot</h3>
-            <p className="text-xs text-white/80">We typically reply in a few minutes</p>
-          </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-24 right-6 w-80 md:w-96 glass-card rounded-xl shadow-2xl z-50 overflow-hidden border border-border/50 backdrop-blur-xl"
+          >
+            {/* Header */}
+            <div className="relative bg-gradient-to-r from-orange-500 via-blue-500 to-purple-600 p-4 flex items-center gap-3">
+              <img 
+                src="/logos/apple-touch-icon.png" 
+                alt="FlexFlow AI" 
+                className="w-10 h-10 rounded-lg"
+              />
+              <div>
+                <h3 className="font-bold text-white text-base">
+                  FlexFlow AI
+                </h3>
+                <p className="text-xs text-white/90">Typical response time: 1-2 minutes</p>
+              </div>
+            </div>
 
           {/* Messages */}
-          <div className="h-80 overflow-y-auto p-4 space-y-4 bg-background/50 relative">
+          <div className="h-80 overflow-y-auto p-4 space-y-3 bg-background/50 relative custom-scrollbar">
             {error && (
-              <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-4 rounded">
-                <p className="font-bold">Connection Error</p>
-                <p className="text-sm">{error}</p>
-                <p className="text-xs mt-2">Make sure the backend server is running on port 3001</p>
-              </div>
-            )}
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 p-3 rounded-lg text-sm"
               >
-                <div
-                  className={`max-w-[80%] p-3 rounded-2xl ${
-                    message.role === "user"
-                      ? "gradient-primary text-white"
-                      : "bg-muted text-foreground"
-                  }`}
-                >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-muted p-3 rounded-2xl">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                </div>
-              </div>
+                <p className="font-semibold">Connection Error</p>
+                <p className="text-xs mt-1">{error}</p>
+              </motion.div>
             )}
+            
+            <AnimatePresence mode="popLayout">
+              {messages.map((message, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.role === "user"
+                        ? "bg-gradient-to-r from-orange-500 via-blue-500 to-purple-600 text-white"
+                        : "bg-muted text-foreground"
+                    }`}
+                  >
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            
+            {isLoading && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex justify-start"
+              >
+                <div className="bg-muted p-3 rounded-lg">
+                  <Loader2 className="h-4 w-4 animate-spin text-orange-500" />
+                </div>
+              </motion.div>
+            )}
+            
             <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-border/50 bg-background/50">
+          <div className="p-3 border-t border-border/50 bg-background">
             <div className="flex gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Type your message..."
-                className="flex-1"
+                className="flex-1 bg-background border-border focus:border-orange-500 focus:ring-orange-500/20"
+                disabled={isLoading}
               />
               <Button 
                 onClick={handleSend} 
-                size="icon" 
-                className="gradient-primary"
-                disabled={isLoading}
+                size="icon"
+                className="bg-gradient-to-r from-orange-500 via-blue-500 to-purple-600 hover:from-orange-600 hover:via-blue-600 hover:to-purple-700 transition-all"
+                disabled={isLoading || !input.trim()}
               >
                 {isLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin text-white" />
                 ) : (
-                  <Send className="h-4 w-4" />
+                  <Send className="h-4 w-4 text-white" />
                 )}
               </Button>
             </div>
           </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

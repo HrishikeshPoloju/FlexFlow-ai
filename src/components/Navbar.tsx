@@ -85,7 +85,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-16 sm:h-20 border border-black/10 dark:border-white/10 rounded-full px-4 sm:px-8 backdrop-blur-sm transition-all duration-300 hover:border-black/20 dark:hover:border-white/20 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5">
           <a 
             href="/"
-            className="text-2xl font-heading font-bold text-foreground ml-4 hover:scale-125 transition-transform duration-300 dark:text-white"
+            className="flex items-center gap-0 hover:scale-105 transition-transform duration-300 group"
             onClick={(e) => {
               if (location.pathname === '/') {
                 e.preventDefault();
@@ -93,7 +93,14 @@ export const Navbar = () => {
               }
             }}
           >
-            FlexFlow AI
+            <img 
+              src="/logos/apple-touch-icon.png" 
+              alt="FlexFlow AI Logo" 
+              className="w-20 h-20 sm:w-24 sm:h-24"
+            />
+            <span className="text-2xl font-heading font-bold text-foreground dark:text-white">
+              FlexFlow AI
+            </span>
           </a>
 
           {/* Desktop Navigation */}
