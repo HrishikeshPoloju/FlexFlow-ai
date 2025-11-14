@@ -1,3 +1,6 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,9 +11,6 @@
    - Fonts: Clash Display (headings), Inter (body)
    - Use utility classes: .gradient-primary, .gradient-text, .glass-card, .btn-primary, .glow-border, .animate-float, .animate-glow
    --------------------------------------------------------- */
-
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   /* Root design tokens (HSL) */
