@@ -88,38 +88,38 @@ export const Team = () => {
                 transition={{ delay: index * 0.1 }}
               >
                 <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-8 h-full shadow-sm hover:shadow-xl hover:shadow-amber-500/5 hover:border-amber-500/20 hover:-translate-y-1 transition-all duration-500 ease-out">
-                  <div className="flex flex-col md:flex-row gap-8 items-center">
-                    {/* Avatar */}
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  {/* Avatar */}
                     <div className="relative">
                       <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-amber-500/10 to-violet-500/10 group-hover:border-amber-500/30 transition-colors duration-500">
                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400/20 to-violet-500/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        {member.image ? (
-                          <img
-                            src={member.image}
-                            alt={member.name}
+                    {member.image ? (
+                      <img
+                        src={member.image}
+                        alt={member.name}
                             className="w-full h-full object-cover relative z-10"
-                            onError={(e) => {
-                              // If image fails to load, show the fallback
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none';
-                              const fallback = target.nextElementSibling as HTMLElement;
-                              if (fallback) fallback.style.display = 'flex';
-                            }}
-                          />
-                        ) : null}
-                        <div 
+                        onError={(e) => {
+                          // If image fails to load, show the fallback
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          const fallback = target.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div 
                           className={`w-full h-full flex items-center justify-center text-4xl text-muted-foreground font-bold relative z-10 ${member.image ? 'hidden' : 'flex'}`}
-                        >
-                          {member.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+                    >
+                      {member.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
                         </div>
-                      </div>
                     </div>
+                  </div>
 
-                    {/* Details */}
-                    <div className="flex-1 text-center md:text-left">
+                  {/* Details */}
+                  <div className="flex-1 text-center md:text-left">
                       <h3 className="text-2xl font-bold mb-1 group-hover:text-foreground transition-colors">
                         {member.name}
                       </h3>
@@ -130,40 +130,40 @@ export const Team = () => {
                         {member.description}
                       </p>
 
-                      {/* Social */}
-                      <div className="flex justify-center md:justify-start gap-4">
-                        <a
-                          href={member.social.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                    {/* Social */}
+                    <div className="flex justify-center md:justify-start gap-4">
+                      <a
+                        href={member.social.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
                           className="text-muted-foreground hover:text-[#0077b5] transition-colors p-2 hover:bg-[#0077b5]/10 rounded-lg"
-                          aria-label={`${member.name}'s LinkedIn`}
-                        >
-                          <Linkedin className="w-5 h-5" />
-                        </a>
-                        <a
-                          href={`https://twitter.com/${member.social.twitter}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        aria-label={`${member.name}'s LinkedIn`}
+                      >
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                      <a
+                        href={`https://twitter.com/${member.social.twitter}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                           className="text-muted-foreground hover:text-[#1da1f2] transition-colors p-2 hover:bg-[#1da1f2]/10 rounded-lg"
-                          aria-label={`${member.name}'s Twitter`}
-                        >
-                          <Twitter className="w-5 h-5" />
-                        </a>
-                        <a
-                          href={`mailto:${member.social.email}`}
+                        aria-label={`${member.name}'s Twitter`}
+                      >
+                        <Twitter className="w-5 h-5" />
+                      </a>
+                      <a
+                        href={`mailto:${member.social.email}`}
                           className="text-muted-foreground hover:text-amber-500 transition-colors p-2 hover:bg-amber-500/10 rounded-lg"
-                          aria-label={`Email ${member.name}`}
-                        >
-                          <Mail className="w-5 h-5" />
-                        </a>
-                      </div>
+                        aria-label={`Email ${member.name}`}
+                      >
+                        <Mail className="w-5 h-5" />
+                      </a>
                     </div>
                   </div>
+                </div>
 
                   {/* Hover Gradient Overlay */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-500/0 via-transparent to-violet-500/0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" />
-                </div>
+              </div>
               </motion.div>
             ))}
           </div>
