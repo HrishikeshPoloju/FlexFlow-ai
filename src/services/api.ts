@@ -1,6 +1,5 @@
-// Use environment variable or fallback to proxy (development) or production URL
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
-  (import.meta.env.DEV ? '/api' : 'https://flexflow-ai.onrender.com');
+// Use production backend URL directly
+const API_BASE_URL = 'https://flexflow-ai.onrender.com/api';
 
 export interface Message {
   role: 'user' | 'model';

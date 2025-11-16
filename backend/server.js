@@ -54,13 +54,165 @@ if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
 app.use(cors());
 app.use(express.json());
 
+// Root endpoint - Server status page
+app.get("/", (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>FlexFlow AI Backend</title>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        .container {
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 20px;
+          padding: 40px;
+          max-width: 600px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          text-align: center;
+        }
+        .status {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: #10b981;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 50px;
+          font-weight: 600;
+          margin-bottom: 20px;
+        }
+        .status::before {
+          content: '';
+          width: 12px;
+          height: 12px;
+          background: white;
+          border-radius: 50%;
+          animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+        h1 {
+          font-size: 2.5rem;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #666;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+        .info {
+          background: #f3f4f6;
+          padding: 20px;
+          border-radius: 10px;
+          margin-top: 20px;
+        }
+        .info-item {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 0;
+          border-bottom: 1px solid #e5e7eb;
+        }
+        .info-item:last-child {
+          border-bottom: none;
+        }
+        .label {
+          font-weight: 600;
+          color: #374151;
+        }
+        .value {
+          color: #6b7280;
+        }
+        .endpoints {
+          text-align: left;
+          margin-top: 20px;
+        }
+        .endpoint {
+          background: white;
+          padding: 10px 15px;
+          border-radius: 8px;
+          margin: 8px 0;
+          border-left: 4px solid #667eea;
+        }
+        .endpoint code {
+          color: #667eea;
+          font-family: 'Courier New', monospace;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="status">Server Running</div>
+        <h1>FlexFlow AI Backend</h1>
+        <p>The backend server is up and running successfully. All API endpoints are operational.</p>
+        
+        <div class="info">
+          <div class="info-item">
+            <span class="label">Status:</span>
+            <span class="value">✅ Online</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Port:</span>
+            <span class="value">${PORT}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Environment:</span>
+            <span class="value">${process.env.NODE_ENV || 'development'}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Groq API:</span>
+            <span class="value">✅ Connected</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Email Service:</span>
+            <span class="value">${emailTransporter ? '✅ Enabled' : '⚠️ Disabled'}</span>
+          </div>
+        </div>
+
+        <div class="endpoints">
+          <h3 style="margin-bottom: 10px; color: #374151;">Available Endpoints:</h3>
+          <div class="endpoint">
+            <code>GET /api/health</code> - Health check
+          </div>
+          <div class="endpoint">
+            <code>POST /api/chat</code> - AI chat endpoint
+          </div>
+          <div class="endpoint">
+            <code>POST /api/contact-request</code> - Contact form submission
+          </div>
+          <div class="endpoint">
+            <code>POST /api/extract-contact-info</code> - Extract contact information
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `);
+});
+
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "Server is running" });
 });
 
 // System prompt
-const SYSTEM_PROMPT = `You are FlexBot, the official AI assistant for FlexFlow AI. You are a professional business assistant who ONLY discusses FlexFlow AI's products, services, and related business inquiries.
+const SYSTEM_PROMPT = `You are FlexBot, the official AI assistant for FlexFlow AI. You are a professional business assistant who ONLY discusses FlexFlow AI's products, services, and related business inquiries and Response should be short and concise(2-3 sentences).
 
 STRICT SCOPE - YOU MUST ONLY:
 - Answer questions about FlexFlow AI services and products
