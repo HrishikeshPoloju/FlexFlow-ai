@@ -1,4 +1,6 @@
-const API_BASE_URL = 'http://localhost:3002/api';
+// Use environment variable or fallback to proxy (development) or production URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (import.meta.env.DEV ? '/api' : 'https://flexflow-ai.onrender.com');
 
 export interface Message {
   role: 'user' | 'model';
@@ -51,6 +53,66 @@ export const checkServerHealth = async (): Promise<{ status: string; message: st
     return await response.json();
   } catch (error) {
     console.error('Error checking server health:', error);
+    throw error;
+  }
+};
+
+export interface ExtractedContact {
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  summary: string;
+}
+
+export const extractContactInfo = async (messages: Array<{ role: string; content: string }>): Promise<{ success: boolean; data: ExtractedContact }> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/extract-contact-info`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ messages }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to extract contact information');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error extracting contact information:', error);
+    throw error;
+  }
+};
+
+export interface ContactRequest {
+  name?: string;
+  email: string;
+  phone: string;
+  message?: string;
+  requestType?: string;
+  summary?: string;
+}
+
+export const submitContactRequest = async (data: ContactRequest): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/contact-request`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to submit contact request');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error submitting contact request:', error);
     throw error;
   }
 };

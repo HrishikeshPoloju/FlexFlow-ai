@@ -345,17 +345,13 @@
   ::-webkit-scrollbar-thumb { background: hsl(var(--gold-500)); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: hsl(var(--gold-600)); }
 
-  /* Custom scrollbar for chatbot */
-  .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-  .custom-scrollbar::-webkit-scrollbar-track { 
-    background: transparent; 
+  /* Hide scrollbar for chatbot */
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
   }
-  .custom-scrollbar::-webkit-scrollbar-thumb { 
-    background: linear-gradient(180deg, #f97316, #3b82f6, #9333ea);
-    border-radius: 10px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover { 
-    background: linear-gradient(180deg, #ea580c, #2563eb, #7e22ce);
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   /* Soft borders / radius helpers */

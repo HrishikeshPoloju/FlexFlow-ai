@@ -9,10 +9,10 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     proxy: {
       '/api': {
-        target: 'https://flexflow-ai.onrender.com',
+        target: process.env.VITE_API_BASE_URL || 'https://flexflow-ai.onrender.com',
         changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\/api/, '') 
+        secure: false,
+        // Keep /api in path since backend routes are /api/chat, /api/health, etc.
       }
     }
   },
