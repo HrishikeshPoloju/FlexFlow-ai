@@ -65,11 +65,12 @@ export function SplineSceneBasic() {
                     Book Free Consultation
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
-<button class="btn-outline glow-border text-base group" onclick="window.PushNotify.subscribe()">
+<button 
+  onclick="window.PushNotify.subscribe()"
+  class="px-4 py-2 text-sm rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 hover:border-gray-400 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+>
   Get Notified!
-  <span class="arrow">→</span>
-</button>
-                  
+</button>                  
                 </div>
               </div>
 
