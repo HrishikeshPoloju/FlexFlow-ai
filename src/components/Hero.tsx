@@ -65,8 +65,10 @@ export function SplineSceneBasic() {
                     Book Free Consultation
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                 <button onclick="window.PushNotify.subscribe()">Get Notified!</button>
-
+<button class="btn-outline glow-border text-base group" onclick="window.PushNotify.subscribe()">
+  Get Notified!
+  <span class="arrow">→</span>
+</button>
                   
                 </div>
               </div>
